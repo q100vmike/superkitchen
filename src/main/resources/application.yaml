@@ -1,0 +1,23 @@
+server:
+  port: 8181
+spring:
+  application:
+    name: superkitchen
+  datasource:
+    url: jdbc:postgresql://147.45.151.57:5432/mkustov
+    username: mkustov
+    password: mkustov1
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    change-log: classpath:liquibase/changelog.yml
+camunda:
+  bpm:
+    admin-user:
+      id: demo
+      password: demo
