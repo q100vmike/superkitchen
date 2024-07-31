@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1n6rq1o" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.25.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1n6rq1o" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.25.0">
     <bpmn:process id="superkitchen-process" isExecutable="true" camunda:historyTimeToLive="180">
         <bpmn:startEvent id="StartEvent_1">
             <bpmn:outgoing>Flow_0dnsg4o</bpmn:outgoing>
@@ -21,7 +21,9 @@
             <bpmn:outgoing>Flow_0xwr7zd</bpmn:outgoing>
         </bpmn:exclusiveGateway>
         <bpmn:sequenceFlow id="Flow_1hof0xk" sourceRef="Activity_0j0bsz6" targetRef="Gateway_1qg0hsn" />
-        <bpmn:sequenceFlow id="Flow_18gw7jf" sourceRef="Gateway_1qg0hsn" targetRef="Activity_0uu2eh2" />
+        <bpmn:sequenceFlow id="Flow_18gw7jf" sourceRef="Gateway_1qg0hsn" targetRef="Activity_0uu2eh2">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isWin}</bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
         <bpmn:sequenceFlow id="Flow_14p0bcj" sourceRef="Activity_0uu2eh2" targetRef="Event_1yvkgpj" />
         <bpmn:subProcess id="Activity_0vnkmrs">
             <bpmn:incoming>Flow_0xwr7zd</bpmn:incoming>
@@ -49,14 +51,20 @@
                 <bpmn:outgoing>Flow_0c4v2i8</bpmn:outgoing>
             </bpmn:task>
         </bpmn:subProcess>
-        <bpmn:sequenceFlow id="Flow_0xwr7zd" sourceRef="Gateway_1qg0hsn" targetRef="Activity_0vnkmrs" />
+        <bpmn:sequenceFlow id="Flow_0xwr7zd" sourceRef="Gateway_1qg0hsn" targetRef="Activity_0vnkmrs">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isWin}</bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
         <bpmn:exclusiveGateway id="Gateway_046psk2">
             <bpmn:incoming>Flow_11zhjuw</bpmn:incoming>
             <bpmn:outgoing>Flow_0azgy61</bpmn:outgoing>
             <bpmn:outgoing>Flow_1wardpm</bpmn:outgoing>
         </bpmn:exclusiveGateway>
-        <bpmn:sequenceFlow id="Flow_0azgy61" sourceRef="Gateway_046psk2" targetRef="Activity_04vkiew" />
-        <bpmn:sequenceFlow id="Flow_1wardpm" sourceRef="Gateway_046psk2" targetRef="Activity_1i4ef7m" />
+        <bpmn:sequenceFlow id="Flow_0azgy61" sourceRef="Gateway_046psk2" targetRef="Activity_04vkiew">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isWin}</bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="Flow_1wardpm" sourceRef="Gateway_046psk2" targetRef="Activity_1i4ef7m">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isWin}</bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
         <bpmn:sequenceFlow id="Flow_09k4e5h" sourceRef="Activity_04vkiew" targetRef="Event_1yvkgpj" />
         <bpmn:sequenceFlow id="Flow_0xbopi6" sourceRef="Activity_1i4ef7m" targetRef="Event_1yvkgpj" />
         <bpmn:sequenceFlow id="Flow_11zhjuw" sourceRef="Activity_0vnkmrs" targetRef="Gateway_046psk2" />
@@ -91,18 +99,6 @@
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape id="Gateway_1qg0hsn_di" bpmnElement="Gateway_1qg0hsn" isMarkerVisible="true">
                 <dc:Bounds x="545" y="172" width="50" height="50" />
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="Activity_0sde09c_di" bpmnElement="Activity_1bot78a">
-                <dc:Bounds x="270" y="157" width="100" height="80" />
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="Activity_14fce4u_di" bpmnElement="Activity_0uu2eh2">
-                <dc:Bounds x="520" y="330" width="100" height="80" />
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="Activity_1ilswl7_di" bpmnElement="Activity_04vkiew">
-                <dc:Bounds x="1450" y="80" width="100" height="80" />
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="Activity_0pf9i8c_di" bpmnElement="Activity_1i4ef7m">
-                <dc:Bounds x="1450" y="217" width="100" height="80" />
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape id="Activity_0vnkmrs_di" bpmnElement="Activity_0vnkmrs" isExpanded="true">
                 <dc:Bounds x="660" y="97" width="600" height="200" />
@@ -140,6 +136,18 @@
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNShape id="Gateway_046psk2_di" bpmnElement="Gateway_046psk2" isMarkerVisible="true">
                 <dc:Bounds x="1345" y="172" width="50" height="50" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_0sde09c_di" bpmnElement="Activity_1bot78a">
+                <dc:Bounds x="270" y="157" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_14fce4u_di" bpmnElement="Activity_0uu2eh2">
+                <dc:Bounds x="520" y="330" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1ilswl7_di" bpmnElement="Activity_04vkiew">
+                <dc:Bounds x="1450" y="80" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_0pf9i8c_di" bpmnElement="Activity_1i4ef7m">
+                <dc:Bounds x="1450" y="217" width="100" height="80" />
             </bpmndi:BPMNShape>
             <bpmndi:BPMNEdge id="Flow_0dnsg4o_di" bpmnElement="Flow_0dnsg4o">
                 <di:waypoint x="215" y="197" />

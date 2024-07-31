@@ -3,6 +3,9 @@ package ru.mts.homework.controller;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import lombok.extern.log4j.Log4j;
+import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.ProcessEngines;
+import org.camunda.bpm.engine.RuntimeService;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,8 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Log4j
@@ -38,6 +43,14 @@ public class KitchenController {
 
         LOG.debug("Order created: " + order);
         kitchenService.save(order);
+        String orderid = String.valueOf(order.getId());
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("order", order);
+
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        RuntimeService runtimeService=processEngine.getRuntimeService();
+        runtimeService.startProcessInstanceByKey("superkitchen-process", variables);
         return "Заказ принят!";
     }
 
