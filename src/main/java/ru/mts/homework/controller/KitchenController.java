@@ -6,6 +6,8 @@ import lombok.extern.log4j.Log4j;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.variable.Variables;
+import org.camunda.bpm.engine.variable.value.StringValue;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +53,7 @@ public class KitchenController {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         RuntimeService runtimeService=processEngine.getRuntimeService();
         runtimeService.startProcessInstanceByKey("superkitchen-process", variables);
+
         return "Заказ принят!";
     }
 

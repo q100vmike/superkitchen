@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.joda.time.LocalDateTime;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
 
     @Id
     @Column(name = "id")
