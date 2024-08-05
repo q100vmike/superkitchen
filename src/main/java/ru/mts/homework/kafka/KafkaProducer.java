@@ -18,16 +18,17 @@ public class KafkaProducer {
 
     private static final Logger LOG = LogManager.getLogger(KafkaProducer.class.getName());
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
+    private KafkaTemplate<String, Order> userKafkaTemplate;
+
+    public KafkaProducer(KafkaTemplate<String, Order> kafkaTemplate) {
+        this.userKafkaTemplate = kafkaTemplate;
     }
 
     public void send(String message) {
         Map<String, String> record = new HashMap<>();
         record.put("message", message);
         LOG.info("messsage send: " + message);
-        kafkaTemplate.send("kitchen", "message", message);
+        userKafkaTemplate.send("kitchen", "message", new Order());
     }
 }

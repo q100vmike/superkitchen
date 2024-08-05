@@ -23,15 +23,22 @@ public class SetOrderInWork implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        Order order = (Order) delegateExecution.getVariable("order");
-
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         RuntimeService runtimeService=processEngine.getRuntimeService();
-
         BooleanValue boolWin = Variables.booleanValue(true);
+
+        Order order = (Order) delegateExecution.getVariable("order");
+
         runtimeService.setVariable(delegateExecution.getId(), "isWin", boolWin);
         Boolean isWin = true;
         delegateExecution.setVariable("isWin", isWin);
+
+        order.setStatus("In Work");
+        //orderKafkaTemplate.send("kitchen", new Order());
+
         LOG.debug("name: " + order.getName());
+
+
+
     }
 }

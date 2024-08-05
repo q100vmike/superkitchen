@@ -15,13 +15,13 @@ public class KafkaConsumer {
 
     private static final Logger LOG = LogManager.getLogger(KafkaConsumer.class.getName());
 
-    @KafkaListener(topics = "kitchen", groupId = "superkitchen")
-           // , containerFactory = "orderKafkaListenerContainerFactory")
+    @KafkaListener(topics = "kitchen", groupId = "superkitchen"
+            , containerFactory = "orderKafkaListenerContainerFactory")
     //public void listen(ConsumerRecord<String, Order> record) {
-    public void listen(ConsumerRecord<String, String> record) {
-        LOG.info("Recive message: " + record.key() +" val:" + record.value());
-        //Order order = record.value();
-        //LOG.info("Recive order: " + order.getId());
+    public void listen(ConsumerRecord<String, Order> record) {
+        //LOG.info("Recive message: " + record.key() +" val:" + record.value());
+        Order order = record.value();
+        LOG.info("Recive order: " + order.getId());
     }
 }
 

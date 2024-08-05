@@ -25,6 +25,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 @Log4j
@@ -43,8 +44,10 @@ public class KitchenController {
 
     @PostMapping("/kafka")
     public void testKafka(@RequestBody String message) {
-       // orderKafkaTemplate.send("one", new Order());
-        kafkaProducer.send(message);
+        Order order = new Order();
+        order.setId(UUID.randomUUID());
+        orderKafkaTemplate.send("kitchen", order);
+        //kafkaProducer.send(message);
         System.out.println("Sent message: " + message);
     }
 
@@ -60,6 +63,7 @@ public class KitchenController {
 
         LOG.debug("Order created: " + order);
         kitchenService.save(order);
+
         String orderid = String.valueOf(order.getId());
 
         Map<String, Object> variables = new HashMap<>();
