@@ -9,14 +9,12 @@ import org.springframework.stereotype.Component;
 
 @Log4j
 @Component
-public class CheckIngridients implements JavaDelegate {
+public class Cooking implements JavaDelegate {
 
-    private static final Logger LOG = LogManager.getLogger(CheckIngridients.class.getName());
+    private static final Logger LOG = LogManager.getLogger(Cooking.class.getName());
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        Boolean isWin = true;
-        delegateExecution.setVariable("isWin", isWin);
-        LOG.debug("CheckIngridients");
+        LOG.debug("Cooking");
     }
 }

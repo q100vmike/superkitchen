@@ -10,10 +10,13 @@ import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.engine.variable.value.StringValue;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mts.homework.entity.Order;
+import ru.mts.homework.kafka.KafkaProducer;
 import ru.mts.homework.services.KitchenService;
 
 import java.sql.Timestamp;
@@ -32,6 +35,18 @@ public class KitchenController {
 
     @Autowired
     private KitchenService kitchenService;
+    @Autowired
+    private KafkaProducer kafkaProducer;
+
+    @Autowired
+    private KafkaTemplate<String, Order> orderKafkaTemplate;
+
+    @PostMapping("/kafka")
+    public void testKafka(@RequestBody String message) {
+       // orderKafkaTemplate.send("one", new Order());
+        kafkaProducer.send(message);
+        System.out.println("Sent message: " + message);
+    }
 
     @PostMapping("/order")
     public String postOrder(Order order) {
