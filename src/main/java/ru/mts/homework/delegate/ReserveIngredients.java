@@ -15,6 +15,7 @@ public class ReserveIngredients implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+        Thread.sleep(5000);
         LOG.info("Reserving ingredients");
     }
 }

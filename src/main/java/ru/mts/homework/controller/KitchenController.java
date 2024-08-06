@@ -36,6 +36,7 @@ public class KitchenController {
 
     @Autowired
     private KitchenService kitchenService;
+
     @Autowired
     private KafkaProducer kafkaProducer;
 
