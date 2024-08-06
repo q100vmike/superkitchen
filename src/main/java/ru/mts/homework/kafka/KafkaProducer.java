@@ -19,16 +19,16 @@ public class KafkaProducer {
     private static final Logger LOG = LogManager.getLogger(KafkaProducer.class.getName());
 
 
-    private KafkaTemplate<String, Order> userKafkaTemplate;
+    private KafkaTemplate<String, Order> orderKafkaTemplate;
 
     public KafkaProducer(KafkaTemplate<String, Order> kafkaTemplate) {
-        this.userKafkaTemplate = kafkaTemplate;
+        this.orderKafkaTemplate = kafkaTemplate;
     }
 
     public void send(String message) {
         Map<String, String> record = new HashMap<>();
         record.put("message", message);
         LOG.info("messsage send: " + message);
-        userKafkaTemplate.send("kitchen", "message", new Order());
+        orderKafkaTemplate.send("kitchen", "message", new Order());
     }
 }

@@ -6,6 +6,9 @@ import org.apache.log4j.Logger;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
+import ru.mts.homework.entity.Order;
+
+import java.util.Random;
 
 @Log4j
 @Component
@@ -15,9 +18,18 @@ public class Issuance implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        LOG.info("Issuance started");
+        boolean isTakeAway = false;
+        Order order = (Order) delegateExecution.getVariable("order");
 
-        Boolean isTakeAway = true;
+        Thread.sleep(1000);
+        String shipping = order.getShipping();
+
+        if ("TakeAway".equals(shipping)) {
+            isTakeAway = true;
+        }
         delegateExecution.setVariable("isTakeAway", isTakeAway);
+
+        LOG.info("Issuance");
+
     }
 }
